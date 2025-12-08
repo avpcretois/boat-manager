@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "angular.ng-template",
+    "vscjava.vscode-java-pack",
+    "ms-azuretools.vscode-docker",
+    "EditorConfig.EditorConfig"
+  ]
+}
