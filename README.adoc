@@ -38,6 +38,32 @@ The frontend of the application.
 
 📄 link:client/README.adoc[Client Documentation]
 
+== Usage
+
+=== Running the Server with Podman
+
+To run the server in development mode with PostgreSQL via Testcontainers (using Podman):
+
+.Bash
+[source,bash]
+----
+cd server
+export DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/podman/podman.sock
+export TESTCONTAINERS_RYUK_DISABLED=true
+mvn spring-boot:test-run -am -pl boat-manager-application
+----
+
+.Fish
+[source,fish]
+----
+cd server
+set -x DOCKER_HOST unix://$XDG_RUNTIME_DIR/podman/podman.sock
+set -x TESTCONTAINERS_RYUK_DISABLED true
+mvn spring-boot:test-run -am -pl boat-manager-application
+----
+
+The application will start on http://localhost:8080 with a PostgreSQL container.
+
 == License
 
 This project is licensed under the terms specified of the MIT license, see the link:LICENSE[LICENSE] file.
