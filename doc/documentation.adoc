@@ -10,6 +10,10 @@ The xref:development.adoc[development guide] provides instructions for setting u
 
 The xref:architecture/architecture.adoc[architecture documentation] provides informations about the architecture of the application, and the C4 diagrams.
 
+== Web service documentation
+
+The xref:swagger-ui.adoc[Swagger UI documentation] provides informations on how to access the API documentation.
+
 == ADR (Any Decision Records)
 
 The xref:adr/overview.adoc[ADR overview] provides the list of ADRs (Any Decision Records) of the application.

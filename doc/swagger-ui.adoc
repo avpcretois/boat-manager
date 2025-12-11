@@ -1,0 +1,17 @@
+= Accessing the web API documentation
+:toc:
+:icons: font
+
+The web API documentation is available through Swagger UI and is generated at runtime. You need to run the application server to access it.
+
+== Running the application server
+
+Before accessing the Swagger UI, you must ensure that the application server is running.
+
+Please refer to the documentation on how to xref:development.adoc#_running_the_project_in_development_mode[run the project in development mode].
+
+== Accessing the UI
+
+Once the server is up and running, you can access the Swagger UI at the following URL:
+
+http://localhost:8080/swagger-ui.html
