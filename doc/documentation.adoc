@@ -1,0 +1,15 @@
+= Boat Manager Documentation
+:toc:
+:icons: font
+
+== Development
+
+The xref:development.adoc[development guide] provides instructions for setting up (development environment, environment variables, etc.) and running the project.
+
+== Architecture
+
+The xref:architecture/architecture.adoc[architecture documentation] provides informations about the architecture of the application, and the C4 diagrams.
+
+== ADR (Any Decision Records)
+
+The xref:adr/overview.adoc[ADR overview] provides the list of ADRs (Any Decision Records) of the application.

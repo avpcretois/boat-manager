@@ -1,0 +1,28 @@
+= Ports and Adapters architecture for the server
+
+== Status
+
+Accepted
+
+== Context
+
+When starting the project, I needed to choose how to organize the codebase.
+Either a single module for the simplicity or multiple modules for the _long term maintainability_ (in all honesty, it's just for the fun of it).
+
+== Decision
+
+Split the server module into multiple components :
+
+* web service
+* domain
+* data access
+
+
+== Consequences
+
+Create the following modules :
+
+* `boat-manager-application`: the modules that configures the _Spring Boot application_ and integrates the domain with spring dependency injection.
+* `boat-manager-domain`: the business logic and entities.
+* `boat-manager-data`: the data access module (it's the only one with a real need as I initialize the project with the PostgreSQL driver but an in memory database could be more fitted for this tiny project).
+* `boat-manager-web`: the RESTful web service implementation. Its also responsible for the authentication to the server.

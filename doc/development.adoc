@@ -1,0 +1,81 @@
+= Development
+:toc:
+:icons: font
+
+== Requirements
+
+To build and run this project, you need the following installed on your machine:
+
+* **Java 25**: The project is configured for Java 25.
+* **Maven**: Version 3.9.11 or compatible.
+* **Node.js**: Version v24.11.1 or compatible.
+* **npm**: Version 11.6.2 or compatible is recommended.
+* **podman** or **docker** for TestContainers
+
+You can verify your installed versions with the following commands:
+
+[source,bash]
+----
+java -version
+mvn -v
+node -v
+npm -v
+----
+
+== Running the project in development mode
+
+The project consists of a server (Spring Boot) and a client (Angular).
+
+=== Server
+
+The server is a Spring Boot application. To run it in development mode (which includes a PostgreSQL container via Testcontainers):
+
+==== Environment Variables (Podman)
+
+If you are using Podman, you may need to set the following environment variables:
+
+* `DOCKER_HOST`: `unix://${XDG_RUNTIME_DIR}/podman/podman.sock`
+* `TESTCONTAINERS_RYUK_DISABLED`: `true`
+
+.Bash
+[source,bash]
+----
+export DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/podman/podman.sock
+export TESTCONTAINERS_RYUK_DISABLED=true
+----
+
+.Fish
+[source,fish]
+----
+set -x DOCKER_HOST unix://$XDG_RUNTIME_DIR/podman/podman.sock
+set -x TESTCONTAINERS_RYUK_DISABLED true
+----
+
+. Run the application from the project root:
++
+[source,bash]
+----
+mvn -f server/pom.xml spring-boot:test-run -am -pl boat-manager-application
+----
+
+The server will start on `http://localhost:8080`.
+
+=== Client
+
+The client is an Angular application.
+
+. Install dependencies (if not already done):
++
+[source,bash]
+----
+npm --prefix client install
+----
+
+. Start the development server:
++
+[source,bash]
+----
+npm --prefix client start
+----
+
+The client will be available at `http://localhost:4200/`.

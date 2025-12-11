@@ -1,0 +1,55 @@
+= Architecture
+:toc:
+:icons: font
+
+== Any Decision Records
+
+You can find the ADR of the project xref:adr/overview.adoc[here].
+
+== Architecture overview
+
+The application is a client-server application. The client is a web application that is accessible through a browser. The server is a RESTful service that provides that exposes the boat resources to the client.
+
+=== Client
+
+The client is a web application that is accessible through a browser. It is built using the Angular framework.
+
+=== Server
+
+The server is a web service built with Spring Boot. Its codebase is organized following the Ports and Adapters pattern.
+
+== C4 diagrams
+
+The C4 model is a way to represent the architecture of a system at different levels of abstraction. For more information see : https://c4model.com/.
+
+NOTE: As Github does not provide PlantUML support for rendering C4 diagrams, the diagrams are rendered as SVG files by https://www.plantuml.com/plantuml/. When modifiying the source code of the diagrams, you need to update the svg links.
+
+=== System Context (C4 Level 1)
+
+This diagram shows the Boat Manager system in the context of its users.
+
+image::https://www.plantuml.com/plantuml/svg/NOw_JiD03CRtF8N9L2IQMvYO2bsfL84wLqxED97kVD7PKU3jiGC3OhBr_VdfEuXYrIMdvcxY8IsHO5ITvIc4YcjtctHS-aMe3eMLMBkXv30dPE_iHMEQ-d1yt9zTkfnUGqPHgYPTZzxur6vsUdEcAeLtZdg0zcAdjViCBa3v01q9NWegd93nPffy6IXtxNtpldsxtjnhtbn7_0rlg9JAAXjFG0ly9C5R0iWHAYLKYX1HqR7D6wNVFV_GjauiS22EjlqR[]
+
+.System Context source code
+[%collapsible]
+====
+[plantuml]
+----
+include::C1.puml[]
+----
+====
+
+=== Container (C4 Level 2)
+
+This diagram shows the high-level containers (applications and databases) that make up the Boat Manager system.
+
+image::https://www.plantuml.com/plantuml/svg/XP91Rzim38Nl_XLSJYcGnfUTTcgJ7BQYtRowFGUqnJW2PCaWwGJ1iFy-IXs6e3iq5qdautjVGD-98kiyXkgJZtsO7S5HTP8lTSruNWzUZtCt2t6VebBKTP_6UWeOyyojg0k-gxUVRvjSUdrwh4SK9RRIVciJw2FnUih-LKCiAIwpsGeMhtOixBo7N81q03qIR18gF674mMfoCQjnlRYfghPSzviqHuTyMNQcsuz5bysknnOtyAi2-_tBNyg49cfz7091OoAudwRWUrIVOe68mnomy3ISJjwH08PGa78Kl4MD51KES-pp70Ql5z1K-0LE7hFSCvofWuxJsSh6_Wu59v_pcc_l4HxmP93jn4O9cvJq6kO3Y9oDyD3--5v_VNbfMZ3__w9ttT9rvhb3nGw5YdyI7PZQdu_vrMfYahTzC0rUb0iU-7X8F9Rx2eueHtBGCpaZyHXa1TZt908X3VOWxNFuxwfwfl1ttMK3UUUIWmgaINA_T73oL-toHwurfLtWdmcTm87J21WTdDch4MigOxlDrWRkABhylVq1[]
+
+.Container source code
+[%collapsible]
+====
+[plantuml]
+----
+include::C2.puml[]
+----
+====

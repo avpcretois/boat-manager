@@ -1,0 +1,15 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "User", "A user of the Boat Manager system.")
+
+System_Boundary(boat_manager, "Boat Manager") {
+    Container(spa, "Single Page Application", "Angular", "Provides all the boat management functionality to users via their web browser.")
+    Container(api, "API Application", "Java, Spring Boot", "Provides boat management functionality via a JSON/HTTPS API.")
+    ContainerDb(db, "Database", "PostgreSQL", "Stores user registration information, hashed credentials, access logs, etc.")
+}
+
+Rel(user, spa, "Uses", "HTTPS")
+Rel(spa, api, "Uses", "JSON/HTTPS")
+Rel(api, db, "Reads from and writes to", "JDBC")
+@enduml

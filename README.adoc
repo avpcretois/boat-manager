@@ -1,68 +1,30 @@
-= 🚤 Boat Manager
+= Boat Manager
 :toc:
 :toc-title: Table of Contents
 :icons: font
 
 == About This Project
 
-This project is a *job application challenge*. Yes, you read that right – this is me trying to prove I can code while simultaneously questioning my life choices. ☕
+This project is a *job application challenge*. Yes, you read that right – this is me trying to prove I can code while simultaneously questioning my life choices.
 
 If you've stumbled upon this repository hoping to find the next revolutionary boat management system for your city marina... I have some bad news. This is purely an exercise in demonstrating my skills to potential employers.
 
-== ⚠️ Contribution Policy
+.Southport Marina after Isaias Hurricane. Copyright Gannett 2025
+image::https://www.gannett-cdn.com/presto/2021/06/17/NSTN/f8209eec-ec60-449d-939d-de35493e5bb6-MarinaSuit.jpg?crop=2783,1566,x0,y0&width=2560[A group of boats crashed into the marina, 100%]
 
-[IMPORTANT]
-====
-**Contributions will NOT be accepted or used.**
+== Project documentation
+
+_As any project should be documented, this project is no exception._ You can find the xref:doc/documentation.adoc[project documentation] in the `doc` directory.
+
+== Contribution Policy
+
+WARNING: Contributions will **not** be accepted nor used.
 
 I know, I know – your brilliant ideas could make this the best boat manager the world has ever seen! But alas, this humble vessel is sailing solo. 🚢
 
 Think of it like a cooking show: you can watch, you can appreciate the technique, but please don't try to season my dish while I'm being judged.
 
 If you're feeling generous with your time and code, may I suggest contributing to an actual open-source project that needs your talents? The seas are vast, and there are many worthy ships out there! 🌊
-====
-
-== Project Structure
-
-This project is split into two main components:
-
-=== 🖥️ Server
-
-The backend of the application.
-
-📄 link:server/README.adoc[Server Documentation]
-
-=== 🎨 Client
-
-The frontend of the application.
-
-📄 link:client/README.adoc[Client Documentation]
-
-== Usage
-
-=== Running the Server with Podman
-
-To run the server in development mode with PostgreSQL via Testcontainers (using Podman):
-
-.Bash
-[source,bash]
-----
-cd server
-export DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/podman/podman.sock
-export TESTCONTAINERS_RYUK_DISABLED=true
-mvn spring-boot:test-run -am -pl boat-manager-application
-----
-
-.Fish
-[source,fish]
-----
-cd server
-set -x DOCKER_HOST unix://$XDG_RUNTIME_DIR/podman/podman.sock
-set -x TESTCONTAINERS_RYUK_DISABLED true
-mvn spring-boot:test-run -am -pl boat-manager-application
-----
-
-The application will start on http://localhost:8080 with a PostgreSQL container.
 
 == License
 

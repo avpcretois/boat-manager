@@ -1,0 +1,9 @@
+= Any Decision Records
+
+ADR (Achitecture/Any Decision Record) are documents that record important design decisions made during the development of the application.
+
+NOTE: For such a tiny project, it's completely overkill. But I want to show the way I work in a corporate environment.
+
+You can find the ADR List below :
+
+xref:adr_1.adoc[ADR 1: Ports and Adapters architecture for the server]
