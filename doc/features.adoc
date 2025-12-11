@@ -1,0 +1,35 @@
+== Use cases and requirements
+
+The document list the use cases and requirements of the application.
+
+== Use cases
+
+=== UC1
+
+The user opens your app and gets a login screen. He has to login. After a successful login he is redirected to the overview page (UC2).
+
+=== UC2
+
+The user has a list of all boat resources.
+
+=== UC3
+
+The user can add, update or delete a boat.
+
+=== UC4
+
+The user clicks on a boat item and gets a detail view over it.
+
+== Requirements
+
+== REQ 1
+
+The server must expose a CRUD endpoint for managing boats. A boat should have at least the following attributes and appropriate
+validation:
+
+* Name
+* Description
+
+== REQ 2
+
+The application must enforce authentication of the user to access the resources.

@@ -2,6 +2,10 @@
 :toc:
 :icons: font
 
+== Use cases and requirements
+
+The use cases and requirements of the application are documented xref:features.adoc[here].
+
 == Development
 
 The xref:development.adoc[development guide] provides instructions for setting up (development environment, environment variables, etc.) and running the project.
