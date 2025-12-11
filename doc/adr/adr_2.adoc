@@ -1,0 +1,28 @@
+= Use of Angular Material
+
+== Status
+
+Accepted
+
+== Context
+
+When starting the project, I needed to choose if we use a components library on top of Angular or not.
+
+== Decision
+
+The allow a faster development of the client, I would use Angular Material. It provides a lot of prebuilt components and a consistent look.
+
+The pros :
+
+* Faster development
+* Consistent look
+* Already tested
+
+The cons :
+
+* More dependencies
+* Less control over the UI and UX of the client
+
+== Consequences
+
+The Angular Material library is added to the client module.

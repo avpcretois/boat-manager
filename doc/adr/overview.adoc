@@ -6,4 +6,5 @@ NOTE: For such a tiny project, it's completely overkill. But I want to show the 
 
 You can find the ADR List below :
 
-xref:adr_1.adoc[ADR 1: Ports and Adapters architecture for the server]
+* xref:adr_1.adoc[ADR 1: Ports and Adapters architecture for the server]
+* xref:adr_2.adoc[ADR 2: Use of Angular Material]
