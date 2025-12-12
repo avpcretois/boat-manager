@@ -19,9 +19,5 @@ header {
   button {
     background-color: var(--mat-sys-primary-container);
     color: var(--mat-sys-on-primary-container);
-
-    &:hover {
-      background-color: var(--mat-sys-level4);
-    }
   }
 }

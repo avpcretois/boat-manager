@@ -8,8 +8,8 @@ import { RouterLinkWithHref } from "@angular/router";
 
 @Component({
   selector: 'boat-manager-header',
-  templateUrl: './header.html',
-  styleUrl: './header.scss',
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.scss',
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule, RouterLinkWithHref]
 })
