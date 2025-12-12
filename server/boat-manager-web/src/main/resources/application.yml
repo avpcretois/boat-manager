@@ -1,0 +1,9 @@
+security:
+  user:
+    name: user
+    password: password
+
+spring:
+  web:
+    error:
+      include-stacktrace: never

@@ -1,7 +1,7 @@
 package com.github.avpcretois.boat_manager.web;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class BoatController {
 
   @GetMapping
   public Collection<BoatDTO> getAllBoats() {
-    return Collections.emptyList();
+    return List.of(new BoatDTO("VD-19283", "Le Magnifique", 5.05f, 1.1f, 0.8f,1.2f));
   }
 
   @GetMapping("/{identifier}")
