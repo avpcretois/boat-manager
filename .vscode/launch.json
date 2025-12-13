@@ -21,6 +21,14 @@
       "preLaunchTask": "npm: start",
     },
     {
+      "name": "client - debug - firefox",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "url": "http://localhost:4200/",
+      "webRoot": "${workspaceFolder}/client"
+    },
+    {
       "name": "client - ng test",
       "cwd": "${workspaceFolder}/client",
       "type": "node",
