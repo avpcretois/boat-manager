@@ -1,0 +1,17 @@
+<form (submit)="login($event)">
+  <p>Please login to access the application</p>
+  <mat-form-field appearance="outline" id="username">
+    <mat-label>Username</mat-label>
+    <input matInput [field]="loginForm.user" id="username_input" />
+    @if (!loginForm.user().valid()) {
+    <mat-error>Username is required and must be alphanumeric</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" id="password">
+    <mat-label>Password</mat-label>
+    <input matInput [field]="loginForm.password" type="password" id="password_input" />
+  </mat-form-field>
+
+  <button type="submit" disabled="{{ !loginForm().valid() }}" matFab extended>Login</button>
+</form>
