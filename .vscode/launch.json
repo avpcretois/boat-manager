@@ -4,26 +4,28 @@
   "configurations": [
     {
       "type": "java",
-      "name": "TestBoatManagerApplication",
+      "name": "server - debug",
       "request": "launch",
-      "mainClass": "com.github.avpcretois.boat_manager.TestBoatManagerApplication",
-      "projectName": "boat-manager"
+      "mainClass": "com.github.avpcretois.boat_manager.containers.TestBoatManagerApplication",
+      "projectName": "boat-manager-application",
+      "env": {
+        "DOCKER_HOST": "unix://${env:XDG_RUNTIME_DIR}/podman/podman.sock",
+        "TESTCONTAINERS_RYUK_DISABLED": "true"
+      }
     },
     {
       "name": "client - ng serve",
       "cwd": "${workspaceFolder}/client",
-      "type": "chrome",
+      "type": "node",
       "request": "launch",
       "preLaunchTask": "npm: start",
-      "url": "http://localhost:4200/"
     },
     {
       "name": "client - ng test",
       "cwd": "${workspaceFolder}/client",
-      "type": "chrome",
+      "type": "node",
       "request": "launch",
-      "preLaunchTask": "npm: test",
-      "url": "http://localhost:9876/debug.html"
+      "preLaunchTask": "npm: test"
     }
   ]
 }
