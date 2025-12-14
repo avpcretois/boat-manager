@@ -1,0 +1,57 @@
+<h2>Managed boats</h2>
+<div class="table-container">
+  <table mat-table [dataSource]="boats()" multiTemplateDataRows class="mat-elevation-z8">
+    @for (column of columnsToDisplay; track column) {
+    <ng-container matColumnDef="{{column}}">
+      <th mat-header-cell *matHeaderCellDef>{{column | titlecase }}</th>
+      <td mat-cell *matCellDef="let boat">{{boat[column]}}</td>
+    </ng-container>
+    }
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+      <td mat-cell *matCellDef="let element">
+        <button matIconButton aria-label="expand row" (click)="toggle(element); $event.stopPropagation()"
+          class="toggle-button" [class.toggle-button-expanded]="isExpanded(element)">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let boat" [attr.colspan]="columnsToDisplayWithExpand.length">
+        <div class="boat-detail-wrapper" [class.boat-detail-wrapper-expanded]="isExpanded(boat)">
+          <h3 class="boat-description">Description</h3>
+          <p class="boat-description">{{boat.description}}</p>
+
+          <h3 class="boat-length">Length Overall (m)</h3>
+          <p class="boat-length">{{boat.lengthOverall}}</p>
+
+          <h3 class="boat-beam">Beam (m)</h3>
+          <p class="boat-beam">{{boat.beam}}</p>
+
+          <h3 class="boat-draft">Draft (m)</h3>
+          <p class="boat-draft">{{boat.draft}}</p>
+
+          <h3 class="boat-air-draft">Air draft (m)</h3>
+          <p class="boat-air-draft">{{boat.airDraft}}</p>
+
+          <div class="boat-actions">
+            <button matButton="tonal" (click)="editBoat(boat)">
+              <mat-icon>edit</mat-icon> Edit
+            </button>
+            <button matButton="filled" (click)="deleteBoat(boat)">
+              <mat-icon>delete</mat-icon> Delete
+            </button>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="boat-row"
+      [class.boat-expanded-row]="isExpanded(element)" (click)="toggle(element)">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="boat-detail-row"></tr>
+  </table>
+</div>

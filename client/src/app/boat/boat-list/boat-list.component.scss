@@ -1,0 +1,136 @@
+$header-size: 13pt;
+$header-weight: 500;
+
+h2 {
+  margin-left: 10%;
+}
+
+.table-container {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+table {
+  width: 100%;
+  border-radius: 1em;
+  background-color: var(--mat-sys-surface-container-highest);
+  overflow: hidden;
+
+  th {
+    font-size: $header-size;
+    font-weight: $header-weight;
+  }
+
+  tr {
+    font-size: 12pt;
+  }
+}
+
+tr.boat-detail-row {
+  height: 0;
+}
+
+tr.boat-row {
+  cursor: pointer;
+}
+
+tr.boat-row:not(.boat-expanded-row):hover {
+  background-color: var(--mat-sys-surface-container);
+}
+
+.boat-row td {
+  border-bottom-width: 0;
+}
+
+.boat-detail-wrapper {
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: repeat(5, 0);
+  grid-template-columns: 2.5fr repeat(2, 1fr);
+  transition: grid-template-rows 225ms cubic-bezier(0.4, 0, 0.2, 1);
+  align-items: baseline;
+  margin-top: 0;
+}
+
+.boat-detail-wrapper-expanded {
+  grid-template-rows: repeat(2, 20px 40px) 40px;
+  margin-top: 20px;
+
+  h3 {
+    margin: 0;
+    font-size: $header-size;
+    font-weight: $header-weight;
+  }
+
+  p {
+    margin-top: 9px;
+  }
+}
+
+p.boat-description {
+  grid-column: 1;
+  grid-row: 2 / 5;
+  overflow: scroll;
+  height: 100%;
+  margin-right: 16px;
+  padding-right: 8px;
+}
+
+h3.boat-length {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+p.boat-length {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+p.boat-draft {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+p.boat-draft {
+  grid-column: 2;
+  grid-row: 4;
+}
+
+p.boat-air-draft {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+p.boat-air-draft {
+  grid-column: 3;
+  grid-row: 4;
+}
+
+.boat-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 30px;
+  grid-row: 5;
+  grid-column: 2 / 4;
+
+  .mdc-button {
+    height: 32px;
+  }
+}
+
+.toggle-button {
+  transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-button-expanded {
+  transform: rotate(180deg);
+}
+
+.mat-column-name {
+  width: 60%;
+}
+
+.mat-column-expand {
+  width: 32px;
+}

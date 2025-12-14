@@ -38,6 +38,20 @@ export class AuthenticationService {
     return of(false);
   }
 
+  logout(): void {
+    sessionStorage.removeItem(this.TOKEN_KEY);
+    this.isLoggedIn.set(false);
+  }
+
+  getAuthenticationHeader(): HttpHeaders {
+    if (!this.isLoggedIn()) {
+      throw new Error('Not logged in');
+    }
+    return new HttpHeaders({
+      'Authorization': 'Basic ' + sessionStorage.getItem(this.TOKEN_KEY)
+    });
+  }
+
   private loginToServer(token: string): Observable<boolean> {
     const httpHeaders = new HttpHeaders({
       'Authorization': 'Basic ' + token
@@ -47,10 +61,5 @@ export class AuthenticationService {
       .pipe(map((response) => response.status === 204),
         catchError((_) => of(false)),
       );
-  }
-
-  logout(): void {
-    sessionStorage.removeItem(this.TOKEN_KEY);
-    this.isLoggedIn.set(false);
   }
 }
