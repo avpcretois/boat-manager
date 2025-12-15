@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { disabled, Field, form, pattern, required } from '@angular/forms/signals';
+import { Field, form, pattern, required } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { AuthenticationService } from '../app/auth/authentication.service';
-import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../app/auth/authentication.service';
 
 @Component({
   selector: 'boat-manager-login',
