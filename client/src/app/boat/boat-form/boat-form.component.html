@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Boat informations</h2>
+<mat-dialog-content>
+  <form (submit)="submit($event)">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput [field]="boatForm.name" />
+      @for (error of boatForm.name().errors(); track error.message) {
+      <mat-error>{{ error.message }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Identifier</mat-label>
+      <input matInput [field]="boatForm.identifier" />
+      @for (error of boatForm.identifier().errors(); track error.message) {
+      <mat-error>{{ error.message }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput [field]="boatForm.description"></textarea>
+      @for (error of boatForm.description().errors(); track error.message) {
+      <mat-error>{{ error.message }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Length Overall (in meters)</mat-label>
+      <input matInput [field]="boatForm.lengthOverall" type="number" />
+      @for (error of boatForm.lengthOverall().errors(); track error.message) {
+      <mat-error>{{ error.message }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Beam (in meters)</mat-label>
+      <input matInput [field]="boatForm.beam" type="number" />
+      @for (error of boatForm.beam().errors(); track error.message) {
+      <mat-error>{{ error.message }}</mat-error>
+      }
+    </mat-form-field>
+        <mat-form-field appearance="outline">
+      <mat-label>Draft (in meters)</mat-label>
+      <input matInput [field]="boatForm.draft" type="number" />
+      @for (error of boatForm.draft().errors(); track error.message) {
+      <mat-error>{{ error.message }}</mat-error>
+      }
+    </mat-form-field>
+        <mat-form-field appearance="outline">
+      <mat-label>Air draft (in meters)</mat-label>
+      <input matInput [field]="boatForm.airDraft" type="number" />
+      @for (error of boatForm.airDraft().errors(); track error.message) {
+      <mat-error>{{ error.message }}</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button matButton mat-dialog-close>Cancel</button>
+  <button matButton (click)="submit()" [disabled]="boatForm().invalid() || submited()">Save</button>
+</mat-dialog-actions>
