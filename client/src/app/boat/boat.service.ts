@@ -17,7 +17,7 @@ export class BoatService {
   }
 
   postBoat(boat: Boat): Observable<BoatWithId | undefined> {
-    return this.httpClient.post<BoatWithId>(`/api/boats/`, boat, { headers: this.authService.getAuthenticationHeader() });
+    return this.httpClient.post<BoatWithId>(`/api/boats`, boat, { headers: this.authService.getAuthenticationHeader() });
   }
 
   patchBoat(id: number, boat: BoatWithId): Observable<BoatWithId> {
