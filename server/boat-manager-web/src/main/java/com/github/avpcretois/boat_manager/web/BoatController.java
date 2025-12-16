@@ -22,14 +22,14 @@ public class BoatController {
   private BoatService boatService;
   private BoatMapper mapper;
 
-  public BoatController(BoatService service) {
+  public BoatController(BoatService service, BoatMapper mapper) {
     this.boatService = service;
+    this.mapper = mapper;
   }
 
   @GetMapping
   public Stream<BoatDTO> getAllBoats() {
-    return this.boatService.getAll()
-        .stream()
+    return this.boatService.streamAll()
         .map(this.mapper::toDto);
   }
 
@@ -52,7 +52,8 @@ public class BoatController {
 
   @PatchMapping("/{id}")
   public BoatDTO updateBoat(@PathVariable Long id, @RequestBody BoatDTO boatDTO) {
-    return boatDTO;
+    Boat model = this.mapper.toModel(boatDTO).withId(id);
+    return this.mapper.toDto(this.boatService.update(model));
   }
 
   @DeleteMapping("/{id}")

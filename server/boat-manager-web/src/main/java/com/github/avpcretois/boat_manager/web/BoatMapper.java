@@ -2,8 +2,11 @@ package com.github.avpcretois.boat_manager.web;
 
 import java.util.function.Consumer;
 
+import org.springframework.stereotype.Component;
+
 import com.github.avpcretois.boat_manager.domain.Boat;
 
+@Component
 public class BoatMapper {
 
   public BoatDTO toDto(Boat model) {

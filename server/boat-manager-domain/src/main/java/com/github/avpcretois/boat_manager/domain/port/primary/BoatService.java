@@ -15,15 +15,15 @@ public interface BoatService {
 
   Stream<Boat> streamAll();
 
-  default Collection<Boat> findAll() {
+  default Collection<Boat> getAll() {
     return this.streamAll().toList();
   }
-
-  Collection<Boat> getAll();
 
   Optional<Boat> findById(Long id);
 
   Boat create(Boat model);
 
-  void deleteById(Long id);
+  boolean deleteById(Long id);
+
+  Boat update(Boat model);
 }
