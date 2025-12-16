@@ -1,4 +1,4 @@
-import { TitleCasePipe } from '@angular/common';
+import { KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { AfterViewInit, Component, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ import { BoatService } from '../boat.service';
 
 @Component({
   selector: 'app-boat-list',
-  imports: [MatTableModule, MatButtonModule, MatIconModule, TitleCasePipe],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, KeyValuePipe],
   templateUrl: './boat-list.component.html',
   styleUrl: './boat-list.component.scss',
 })
@@ -23,8 +23,11 @@ export class BoatListComponent implements AfterViewInit {
   private snackBar = inject(MatSnackBar);
   private boatsById = signal(new Map<number, BoatWithId>());
   boats = computed(() => Array.from(this.boatsById().values()));
-  columnsToDisplay = ['name', 'identifier'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
+  columns = {
+    name: 'Name',
+    registrationNumber: 'Registration Number'
+  }
+  columnsToDisplayWithExpand = [...(Object.keys(this.columns)), 'expand'];
   expandedBoat: BoatWithId | undefined = undefined;
 
   ngAfterViewInit(): void {
@@ -65,7 +68,7 @@ export class BoatListComponent implements AfterViewInit {
 
   editBoat(originalBoat: BoatWithId): void {
     this.openBoatFrom(originalBoat)
-      .pipe(switchMap((editedBoat) => editedBoat ? this.boatService.patchBoat(originalBoat.id, {...editedBoat, id: originalBoat.id}) : of(undefined)))
+      .pipe(switchMap((editedBoat) => editedBoat ? this.boatService.patchBoat(originalBoat.id, { ...editedBoat, id: originalBoat.id }) : of(undefined)))
       .subscribe({
         next: (editedBoat) => {
           if (editedBoat) {
