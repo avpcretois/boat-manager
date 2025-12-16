@@ -23,6 +23,17 @@ public class Boat {
     setName(name);
   }
 
+  public Boat withId(Long id) {
+    var other = new Boat(Objects.requireNonNull(id, "id cannot be null"), this.name);
+    other.description = this.description;
+    other.registrationNumber = this.registrationNumber;
+    other.lengthOverall = this.lengthOverall;
+    other.beam = this.beam;
+    other.draft = this.draft;
+    other.airDraft = this.airDraft;
+    return other;
+  }
+
   public void setName(String name) {
     if (name == null || !name.matches("^[A-z]+( [A-z]+)*$")) {
       throw new IllegalArgumentException("The name must only containt latin letters, not start of "
@@ -32,8 +43,8 @@ public class Boat {
   }
 
   public void setDescription(String description) {
-    if (description == null || description.isBlank()) {
-      throw new IllegalArgumentException("The description cannot be null nor blank");
+    if (description != null && description.isBlank()) {
+      throw new IllegalArgumentException("The description cannot be blank");
     }
     this.description = description;
   }
@@ -54,11 +65,11 @@ public class Boat {
   }
 
   public void setDraft(Float draft) {
-    this.beam = requirePositive(draft, "draft");
+    this.draft = requirePositive(draft, "draft");
   }
 
   public void setAirDraft(Float airDraft) {
-    this.beam = requirePositive(airDraft, "air draft");
+    this.airDraft = requirePositive(airDraft, "air draft");
   }
 
   public Optional<Long> getId() {
@@ -91,6 +102,16 @@ public class Boat {
 
   public Optional<Float> getAirDraft() {
     return Optional.ofNullable(airDraft);
+  }
+
+  @Override
+  public int hashCode() {
+    return id.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return this == obj || obj instanceof Boat other && this.id == other.id;
   }
 
   private Float requirePositive(Float value, String label) {
