@@ -1,50 +1,63 @@
 package com.github.avpcretois.boat_manager.web;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.github.avpcretois.boat_manager.domain.Boat;
+import com.github.avpcretois.boat_manager.domain.port.primary.BoatService;
 
 @RestController
 @RequestMapping("/boats")
 public class BoatController {
 
-  @GetMapping
-  public Collection<BoatDTO> getAllBoats() {
-    return List.of(new BoatDTO("VD-19283", "Le Magnifique", 5.05f, 1.1f, 0.8f,1.2f));
+  private BoatService boatService;
+  private BoatMapper mapper;
+
+  public BoatController(BoatService service) {
+    this.boatService = service;
   }
 
-  @GetMapping("/{identifier}")
-  public BoatDTO getBoatById(@PathVariable String identifier) {
-    return null;
+  @GetMapping
+  public Stream<BoatDTO> getAllBoats() {
+    return this.boatService.getAll()
+        .stream()
+        .map(this.mapper::toDto);
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<BoatDTO> getBoatById(@PathVariable Long id) {
+    return this.boatService.findById(id)
+        .map(this.mapper::toDto)
+        .map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @PostMapping
-  public BoatDTO createBoat(@RequestBody BoatDTO boatDTO,
-      @RequestParam(name = "genId", required = false, defaultValue = "false") boolean generateIdentifier) {
-    return null;
+  public BoatDTO createBoat(@RequestBody BoatDTO boatDTO) {
+    if (boatDTO.id() != null) {
+      throw new IllegalArgumentException("The boat id should not be set");
+    }
+    Boat newBoat = this.boatService.create(this.mapper.toModel(boatDTO));
+    return this.mapper.toDto(newBoat);
   }
 
-  @PutMapping("/{identifier}")
-  public BoatDTO createOrUpdateBoat(@PathVariable String identifier, @RequestBody BoatDTO boatDTO) {
-    return null;
+  @PatchMapping("/{id}")
+  public BoatDTO updateBoat(@PathVariable Long id, @RequestBody BoatDTO boatDTO) {
+    return boatDTO;
   }
 
-  @PatchMapping("/{identifier}")
-  public BoatDTO updateBoat(@PathVariable String identifier, @RequestBody BoatDTO boatDTO) {
-    return null;
-  }
-
-  @DeleteMapping("/{identifier}")
-  public void deleteBoat(@PathVariable String identifier) {
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteBoat(@PathVariable Long id) {
+    this.boatService.deleteById(id);
+    return ResponseEntity.noContent().build();
   }
 }

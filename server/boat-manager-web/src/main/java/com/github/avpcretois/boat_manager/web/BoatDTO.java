@@ -1,7 +1,10 @@
 package com.github.avpcretois.boat_manager.web;
 
-public record BoatDTO(String identifier,
+public record BoatDTO(
+    Long id,
     String name,
+    String description,
+    String registrationNumber,
     Float lengthOverall,
     Float beam,
     Float draft,

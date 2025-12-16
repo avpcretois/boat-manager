@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BoatListComponent } from './boat-list.component';
-import { BoatService } from '../boat.service';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
+import { BoatWithId } from '../boat-with-id';
+import { BoatService } from '../boat.service';
+import { BoatListComponent } from './boat-list.component';
 
 describe('BoatListComponent', () => {
   let component: BoatListComponent;
@@ -14,7 +15,9 @@ describe('BoatListComponent', () => {
   beforeEach(async () => {
     boatServiceMock = {
       getAllBoats: vi.fn().mockReturnValue(of([])),
-      patchBoat: vi.fn()
+      patchBoat: vi.fn(),
+      postBoat: vi.fn(),
+      deleteBoat: vi.fn(),
     };
 
     dialogMock = {
@@ -52,20 +55,32 @@ describe('BoatListComponent', () => {
   });
 
   it('should add boat when dialog returns data', () => {
-    const newBoat = { name: 'Test Boat', identifier: '12345678' };
+    const newBoat = {
+      name: 'Test Boat',
+      registrationNumber: '12345678',
+    };
     dialogMock.open.mockReturnValue({
       afterClosed: () => of(newBoat)
     });
+    boatServiceMock.postBoat.mockReturnValue(of({...newBoat, id: 1}))
 
     component.add();
 
     expect(component.boats().length).toBe(1);
-    expect(component.boats()[0]).toEqual(newBoat as any);
+    expect(component.boats()[0]).toEqual({...newBoat, id: 1} as BoatWithId);
   });
 
   it('should update boat when edited', () => {
-    const originalBoat = { name: 'Original', identifier: '123' };
-    const editedBoat = { name: 'Edited', identifier: '123' };
+    const originalBoat: BoatWithId = {
+      name: 'Original',
+      registrationNumber: '123',
+      id: 1
+    };
+    const editedBoat: BoatWithId = {
+      name: 'Edited',
+      registrationNumber: '38',
+      id: 1
+    };
 
     // Setup initial state
     boatServiceMock.getAllBoats.mockReturnValue(of([originalBoat]));
@@ -79,7 +94,7 @@ describe('BoatListComponent', () => {
     component.editBoat(originalBoat as any);
 
     expect(component.boats().length).toBe(1);
-    expect(component.boats()[0]).toEqual(editedBoat as any);
-    expect(boatServiceMock.patchBoat).toHaveBeenCalledWith('123', editedBoat);
+    expect(component.boats()[0]).toEqual(editedBoat);
+    expect(boatServiceMock.patchBoat).toHaveBeenCalledWith(1, editedBoat);
   });
 });

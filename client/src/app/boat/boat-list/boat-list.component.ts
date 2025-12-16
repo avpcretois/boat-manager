@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, Inject, inject, signal, WritableSignal, computed } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
-import { Boat } from '../boat';
-import { BoatService } from '../boat.service';
 import { TitleCasePipe } from '@angular/common';
+import { AfterViewInit, Component, computed, inject, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { BoatFormComponent } from '../boat-form/boat-form.component';
-import { mergeMap, Observable, of, switchMap } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { Observable, of, switchMap } from 'rxjs';
+import { Boat } from '../boat';
+import { BoatFormComponent } from '../boat-form/boat-form.component';
+import { BoatWithId } from '../boat-with-id';
+import { BoatService } from '../boat.service';
 
 @Component({
   selector: 'app-boat-list',
@@ -20,39 +21,39 @@ export class BoatListComponent implements AfterViewInit {
   private boatService = inject(BoatService);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
-  private boatsById = signal(new Map<string, Boat>());
+  private boatsById = signal(new Map<number, BoatWithId>());
   boats = computed(() => Array.from(this.boatsById().values()));
   columnsToDisplay = ['name', 'identifier'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedBoat: Boat | undefined = undefined;
+  expandedBoat: BoatWithId | undefined = undefined;
 
   ngAfterViewInit(): void {
     this.boatService.getAllBoats().subscribe(boats => {
-      const boatsMap = new Map<string, Boat>();
-      boats.forEach(boat => boatsMap.set(boat.identifier, boat));
+      const boatsMap = new Map<number, BoatWithId>();
+      boats.forEach(boat => boatsMap.set(boat.id, boat));
       this.boatsById.set(boatsMap);
     })
   }
 
   /** Checks whether an element is expanded. */
-  isExpanded(boat: Boat) {
+  isExpanded(boat: BoatWithId) {
     return this.expandedBoat === boat;
   }
 
   /** Toggles the expanded state of a row. */
-  toggle(boat: Boat) {
+  toggle(boat: BoatWithId) {
     this.expandedBoat = this.isExpanded(boat) ? undefined : boat;
   }
 
   add() {
     this.openBoatFrom()
-      .pipe(switchMap((editedBoat) => editedBoat ? this.boatService.postBoat(editedBoat) : of(undefined)))
+      .pipe(switchMap((newBoat) => newBoat ? this.boatService.postBoat(newBoat) : of(undefined)))
       .subscribe({
         next: (newBoat) => {
           if (newBoat) {
             this.boatsById.update((boatsById) => {
               const newMap = new Map(boatsById);
-              newMap.set(newBoat.identifier, newBoat);
+              newMap.set(newBoat.id, newBoat);
               return newMap;
             });
             this.snackBar.open('Boat successfully edited', 'Close', { duration: 5 * 1000, verticalPosition: 'top' })
@@ -62,16 +63,16 @@ export class BoatListComponent implements AfterViewInit {
       })
   }
 
-  editBoat(originalBoat: Boat): void {
+  editBoat(originalBoat: BoatWithId): void {
     this.openBoatFrom(originalBoat)
-      .pipe(switchMap((editedBoat) => editedBoat ? this.boatService.postBoat(editedBoat) : of(undefined)))
+      .pipe(switchMap((editedBoat) => editedBoat ? this.boatService.patchBoat(originalBoat.id, {...editedBoat, id: originalBoat.id}) : of(undefined)))
       .subscribe({
         next: (editedBoat) => {
           if (editedBoat) {
             this.boatsById.update((boatsById) => {
               const newMap = new Map(boatsById);
-              newMap.delete(originalBoat.identifier);
-              newMap.set(editedBoat.identifier, editedBoat);
+              newMap.delete(originalBoat.id);
+              newMap.set(editedBoat.id, editedBoat);
               return newMap;
             });
             this.snackBar.open('Boat successfully edited', 'Close', { duration: 5 * 1000, verticalPosition: 'top' })
@@ -81,13 +82,13 @@ export class BoatListComponent implements AfterViewInit {
       })
   }
 
-  deleteBoat(boat: Boat): void {
-    this.boatService.deleteBoat(boat.identifier)
+  deleteBoat(boat: BoatWithId): void {
+    this.boatService.deleteBoat(boat.id)
       .subscribe({
         next: () => {
           this.boatsById.update((boatsById) => {
             const newMap = new Map(boatsById);
-            newMap.delete(boat.identifier);
+            newMap.delete(boat.id);
             return newMap;
           });
           this.snackBar.open('Boat successfully deleted', 'Close', { duration: 5 * 1000, verticalPosition: 'top' })
@@ -96,7 +97,7 @@ export class BoatListComponent implements AfterViewInit {
       });
   }
 
-  private openBoatFrom(data?: Boat): Observable<Boat> {
+  private openBoatFrom(data?: BoatWithId): Observable<Boat> {
     const boatFormDialogRef = this.dialog.open(BoatFormComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',

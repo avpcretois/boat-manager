@@ -9,16 +9,16 @@
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Identifier</mat-label>
-      <input matInput [field]="boatForm.identifier" />
-      @for (error of boatForm.identifier().errors(); track error.message) {
+      <mat-label>Description</mat-label>
+      <textarea matInput [field]="boatForm.description"></textarea>
+      @for (error of boatForm.description().errors(); track error.message) {
       <mat-error>{{ error.message }}</mat-error>
       }
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Description</mat-label>
-      <textarea matInput [field]="boatForm.description"></textarea>
-      @for (error of boatForm.description().errors(); track error.message) {
+      <mat-label>Identifier</mat-label>
+      <input matInput [field]="boatForm.identifier" />
+      @for (error of boatForm.identifier().errors(); track error.message) {
       <mat-error>{{ error.message }}</mat-error>
       }
     </mat-form-field>

@@ -1,25 +1,29 @@
 package com.github.avpcretois.boat_manager.domain.port.primary;
 
 import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import com.github.avpcretois.boat_manager.domain.Boat;
 
-/**
- * Primary port for boat management operations.
- *
- * <p>
- * This interface defines the use cases available for managing boats.
- * It is implemented by the domain service and called by primary adapters
- * (e.g., REST controllers).
- */
+/// Primary port for boat management operations.
+///
+/// This interface defines the use cases available for managing boats.
+///
+/// @implNote The implementations of this service must not be used in any adapter
 public interface BoatService {
 
-  Collection<Boat> findAll();
+  Stream<Boat> streamAll();
 
-  // TODO: Add boat management use cases
-  // Example methods:
-  // Boat createBoat(CreateBoatCommand command);
-  // Optional<Boat> findBoatById(BoatId id);
-  // List<Boat> findAllBoats();
-  // void deleteBoat(BoatId id);
+  default Collection<Boat> findAll() {
+    return this.streamAll().toList();
+  }
+
+  Collection<Boat> getAll();
+
+  Optional<Boat> findById(Long id);
+
+  Boat create(Boat model);
+
+  void deleteById(Long id);
 }

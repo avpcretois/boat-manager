@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, inject, OnInit, signal } from '@angular/core';
 import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { Field, FieldState, form, min, pattern, required } from '@angular/forms/signals';
-import { Boat } from '../boat';
+import { BoatWithId } from '../boat-with-id';
 import { MatDialogRef, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 
@@ -39,7 +39,11 @@ export class BoatFormComponent {
         + ' end by a space and cannot have two consecutive spaces.'
     });
 
-    required(schemaPath.identifier);
+    required(schemaPath.description)
+    pattern(schemaPath.description, /\w/, {
+      message: 'The description cannot be blank'
+    })
+
     pattern(schemaPath.identifier, /[0-9]{8}/, {
       message: 'The identifier is a 8 digits number'
     });
@@ -56,19 +60,18 @@ export class BoatFormComponent {
   submit($event?: SubmitEvent): void {
     this.submited.set(true)
     $event?.preventDefault();
-    this.boatForm.lengthOverall().touched()
     this.dialogRef.close({
       name: this.boatModel().name,
-      identifier: this.boatModel().identifier,
+      registrationNumber: this.boatModel().identifier,
       description: this.extractIfTouched('description'),
       lengthOverall: this.extractIfTouched('lengthOverall'),
       beam: this.extractIfTouched('beam'),
       draft: this.extractIfTouched('draft'),
       airDraft: this.extractIfTouched('airDraft'),
-    } as Boat);
+    } as BoatWithId);
   }
 
-  private extractIfTouched(key: keyof Boat): string | number | undefined {
-    return this.boatForm[key]().touched() || this?.data[key] !== undefined ? this.boatModel()[key] : undefined
+  private extractIfTouched(key: 'description' | 'lengthOverall' | 'beam' | 'draft' | 'airDraft'): string | number | undefined {
+    return this.boatForm[key]().touched() || this.data?.[key] !== undefined ? this.boatModel()[key] : undefined
   }
 }
