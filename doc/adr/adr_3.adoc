@@ -1,0 +1,21 @@
+= ADR 3 : Use of an in-memory storage instead of PostgreSQL
+
+== Status
+
+Accepted
+
+== Context
+
+As the scope of this project is closer to a POC than a real application, the use of a full Postgres DB may be overkill.
+
+== Decision
+
+To allow a faster startup time of the application and diminish the required tools, it would be easier to use and in-memory storage.
+
+== Consequences
+
+The following action will be done :
+
+- rename the maven module `boat-manager-data` into `boat-manager-data-pgsql`
+- create a new module `boat-manger-data-memory`
+- modify the documentation

@@ -10,7 +10,6 @@ To build and run this project, you need the following installed on your machine:
 * **Maven**: Version 3.9.11 or compatible.
 * **Node.js**: Version v24.11.1 or compatible.
 * **npm**: Version 11.6.2 or compatible is recommended.
-* **podman** or **docker** for TestContainers
 
 You can verify your installed versions with the following commands:
 
@@ -28,28 +27,7 @@ The project consists of a server (Spring Boot) and a client (Angular).
 
 === Server
 
-The server is a Spring Boot application. To run it in development mode (which includes a PostgreSQL container via Testcontainers):
-
-==== Environment Variables (Podman)
-
-If you are using Podman, you may need to set the following environment variables:
-
-* `DOCKER_HOST`: `unix://${XDG_RUNTIME_DIR}/podman/podman.sock`
-* `TESTCONTAINERS_RYUK_DISABLED`: `true`
-
-.Bash
-[source,bash]
-----
-export DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/podman/podman.sock
-export TESTCONTAINERS_RYUK_DISABLED=true
-----
-
-.Fish
-[source,fish]
-----
-set -x DOCKER_HOST unix://$XDG_RUNTIME_DIR/podman/podman.sock
-set -x TESTCONTAINERS_RYUK_DISABLED true
-----
+The server is a Spring Boot application. To run it in development mode:
 
 . Run the application from the project root:
 +

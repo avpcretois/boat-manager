@@ -10,10 +10,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>boat-manager-data</artifactId>
+    <artifactId>boat-manager-data-pgsql</artifactId>
     <packaging>jar</packaging>
 
-    <name>Boat Manager Data</name>
+    <name>Boat Manager Data - PostgreSQL</name>
     <description>Database access layer - Secondary adapters for the domain</description>
 
     <dependencies>

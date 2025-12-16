@@ -15,7 +15,8 @@
   <modules>
     <module>boat-manager-domain</module>
     <module>boat-manager-web</module>
-    <module>boat-manager-data</module>
+    <module>boat-manager-data-pgsql</module>
+    <module>boat-manager-data-memory</module>
     <module>boat-manager-application</module>
   </modules>
 
@@ -68,7 +69,12 @@
       </dependency>
       <dependency>
         <groupId>com.github.avpcretois</groupId>
-        <artifactId>boat-manager-data</artifactId>
+        <artifactId>boat-manager-data-pgsql</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.avpcretois</groupId>
+        <artifactId>boat-manager-data-memory</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

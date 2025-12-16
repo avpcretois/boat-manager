@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.avpcretois</groupId>
-            <artifactId>boat-manager-data</artifactId>
+            <artifactId>boat-manager-data-memory</artifactId>
         </dependency>
 
         <dependency>

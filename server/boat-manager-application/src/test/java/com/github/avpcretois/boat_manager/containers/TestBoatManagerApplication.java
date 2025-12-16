@@ -20,7 +20,6 @@ public class TestBoatManagerApplication {
 
     public static void main(String[] args) {
         SpringApplication.from(BoatManagerApplication::main)
-                .with(ContainersConfiguration.class)
                 .run(args);
     }
 }
