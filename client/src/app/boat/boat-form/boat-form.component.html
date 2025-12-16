@@ -17,8 +17,8 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Identifier</mat-label>
-      <input matInput [field]="boatForm.identifier" />
-      @for (error of boatForm.identifier().errors(); track error.message) {
+      <input matInput [field]="boatForm.registrationNumber" />
+      @for (error of boatForm.registrationNumber().errors(); track error.message) {
       <mat-error>{{ error.message }}</mat-error>
       }
     </mat-form-field>

@@ -1,7 +1,5 @@
 package com.github.avpcretois.boat_manager.web;
 
-import java.util.function.Consumer;
-
 import org.springframework.stereotype.Component;
 
 import com.github.avpcretois.boat_manager.domain.Boat;
@@ -23,18 +21,12 @@ public class BoatMapper {
 
   public Boat toModel(BoatDTO boatDTO) {
     Boat boat = new Boat(boatDTO.name());
-    setIfNotNull(boatDTO.description(), boat::setDescription);
-    setIfNotNull(boatDTO.registrationNumber(), boat::setRegistrationNumber);
-    setIfNotNull(boatDTO.lengthOverall(), boat::setLengthOverall);
-    setIfNotNull(boatDTO.beam(), boat::setBeam);
-    setIfNotNull(boatDTO.draft(), boat::setDraft);
-    setIfNotNull(boatDTO.airDraft(), boat::setAirDraft);
+    boat.setDescription(boatDTO.description());
+    boat.setRegistrationNumber(boatDTO.registrationNumber());
+    boat.setLengthOverall(boatDTO.lengthOverall());
+    boat.setBeam(boatDTO.beam());
+    boat.setDraft(boatDTO.draft());
+    boat.setAirDraft(boatDTO.airDraft());
     return boat;
-  }
-
-  private <T> void setIfNotNull(T value, Consumer<T> setter) {
-    if (value != null) {
-      setter.accept(value);
-    }
   }
 }

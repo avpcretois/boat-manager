@@ -50,7 +50,7 @@ public class Boat {
   }
 
   public void setRegistrationNumber(String registrationNumber) {
-    if (registrationNumber == null || registrationNumber != null && !registrationNumber.matches("^[0-9]{8}$")) {
+    if (registrationNumber != null && !registrationNumber.matches("^[0-9]{8}$")) {
       throw new IllegalArgumentException("The registration number must only contain 8 digits");
     }
     this.registrationNumber = registrationNumber;
@@ -115,8 +115,8 @@ public class Boat {
   }
 
   private Float requirePositive(Float value, String label) {
-    if (value == null || value < 0) {
-      throw new IllegalArgumentException("The " + label + " cannot be null or non positive value");
+    if (value != null && value < 0) {
+      throw new IllegalArgumentException("The " + label + " cannot be a negative value");
     }
     return value;
   }

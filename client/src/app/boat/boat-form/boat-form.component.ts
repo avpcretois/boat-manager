@@ -4,6 +4,7 @@ import { Field, FieldState, form, min, pattern, required } from '@angular/forms/
 import { BoatWithId } from '../boat-with-id';
 import { MatDialogRef, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
+import { Boat } from '../boat';
 
 @Component({
   selector: 'app-boat-form',
@@ -24,12 +25,12 @@ export class BoatFormComponent {
   submited = signal(false);
   boatModel = signal({
     name: this.data?.name || '',
-    identifier: this.data?.identifier || '',
+    registrationNumber: this.data?.registrationNumber || '',
     description: this.data?.description || '',
-    lengthOverall: this.data?.lengthOverall || 0,
-    beam: this.data?.beam || 0,
-    draft: this.data?.draft || 0,
-    airDraft: this.data?.airDraft || 0,
+    lengthOverall: this.data?.lengthOverall || '',
+    beam: this.data?.beam || '',
+    draft: this.data?.draft || '',
+    airDraft: this.data?.airDraft || '',
   });
 
   boatForm = form(this.boatModel, (schemaPath) => {
@@ -39,12 +40,11 @@ export class BoatFormComponent {
         + ' end by a space and cannot have two consecutive spaces.'
     });
 
-    required(schemaPath.description)
     pattern(schemaPath.description, /\w/, {
       message: 'The description cannot be blank'
-    })
+    });
 
-    pattern(schemaPath.identifier, /[0-9]{8}/, {
+    pattern(schemaPath.registrationNumber, /[0-9]{8}/, {
       message: 'The identifier is a 8 digits number'
     });
 
@@ -62,16 +62,21 @@ export class BoatFormComponent {
     $event?.preventDefault();
     this.dialogRef.close({
       name: this.boatModel().name,
-      registrationNumber: this.boatModel().identifier,
+      registrationNumber: this.extractIfTouched('registrationNumber'),
       description: this.extractIfTouched('description'),
       lengthOverall: this.extractIfTouched('lengthOverall'),
       beam: this.extractIfTouched('beam'),
       draft: this.extractIfTouched('draft'),
       airDraft: this.extractIfTouched('airDraft'),
-    } as BoatWithId);
+    } as Boat);
   }
 
-  private extractIfTouched(key: 'description' | 'lengthOverall' | 'beam' | 'draft' | 'airDraft'): string | number | undefined {
-    return this.boatForm[key]().touched() || this.data?.[key] !== undefined ? this.boatModel()[key] : undefined
+  private extractIfTouched(key: 'registrationNumber' | 'description' | 'lengthOverall' | 'beam' | 'draft' | 'airDraft'): string | number | undefined {
+    if (typeof this.boatModel()[key] === 'string' && this.boatModel()[key]
+      || typeof this.boatModel()[key] === 'number' && this.boatModel()[key] != 0) {
+      return this.boatModel()[key];
+    } else {
+      return undefined;
+    }
   }
 }
